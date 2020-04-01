@@ -1,6 +1,6 @@
 menu = {}
 
-
+hasPlayed = false
 
 function menu:load()
   
@@ -17,7 +17,9 @@ function menu:draw()
   love.graphics.setFont(quicksandRegular)
   love.graphics.printf("Play", 0, gh * 0.45, gw, "center")
   love.graphics.setFont(quicksandRegularSmall)
-  love.graphics.printf("Highscore 120", 0, gh * 0.78, gw, "center")
+  if(hasPlayed) then
+    love.graphics.printf("Score " .. game:getPoints(), 0, gh * 0.78, gw, "center")
+  end
   love.graphics.setFont(quicksandBold)
   love.graphics.printf("Orblet", 0, gh * 0.08, gw, "center")
 end
@@ -28,6 +30,7 @@ function menu:mousepressed(x, y, button, isTouch)
   if ((isMouseOnPlay and button == 1) or (isMouseOnPlay and isTouch)) then
     state = "game"
     game:resetPoints()
+    hasPlayed = true
   end
 end
 

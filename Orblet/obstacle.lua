@@ -30,7 +30,7 @@ function obstacle:update(dt)
   angle = angle % (2*math.pi)
   if (angle >= 0 and angle <= 1) then
     obstacle:setCanGetPoint(true)
-    angleSpeed = love.math.random(1000, 1600) / 1000
+    angleSpeed = love.math.random(850, 1520) / 1000
   end
 end
 

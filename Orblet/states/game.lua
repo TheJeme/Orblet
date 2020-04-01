@@ -5,6 +5,10 @@ game = {}
 
 local points
 
+function game:getPoints()
+  return points
+end
+
 function game:resetPoints()
   points = 0
 end
