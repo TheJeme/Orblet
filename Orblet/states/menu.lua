@@ -1,11 +1,9 @@
 menu = {}
 
-local quicksandRegular
-local quicksandBold
+
 
 function menu:load()
-  quicksandRegular = love.graphics.newFont('fonts/Quicksand-Regular.ttf', 72)
-  quicksandBold = love.graphics.newFont('fonts/Quicksand-Bold.ttf', 96)
+  
 end
 
 function menu:update(dt)
@@ -18,6 +16,8 @@ function menu:draw()
   love.graphics.setColor(1, 1, 1, 1)
   love.graphics.setFont(quicksandRegular)
   love.graphics.printf("Play", 0, gh * 0.42, gw, "center")
+  love.graphics.setFont(quicksandRegularSmall)
+  love.graphics.printf("Highscore 120", 0, gh * 0.78, gw, "center")
   love.graphics.setFont(quicksandBold)
   love.graphics.printf("Orblet", 0, gh * 0.08, gw, "center")
 end

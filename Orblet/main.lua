@@ -3,20 +3,18 @@ colors = require 'colors'
 beloved = require 'beloved'
 game = require 'states/game'
 menu = require 'states/menu'
-player = require 'player'
 gamemanager = require 'gamemanager'
 
-local quicksandRegular
-local quicksandBold
+quicksandRegular = love.graphics.newFont('fonts/Quicksand-Regular.ttf', 72)
+quicksandRegularSmall = love.graphics.newFont('fonts/Quicksand-Regular.ttf', 42)
+quicksandBold = love.graphics.newFont('fonts/Quicksand-Bold.ttf', 96)
+
 local gameplay
 
 function love.load()
   love.graphics.setBackgroundColor(red)
-  quicksandRegular = love.graphics.newFont('fonts/Quicksand-Regular.ttf', 72)
-  quicksandBold = love.graphics.newFont('fonts/Quicksand-Bold.ttf', 96)
   game:load()
   menu:load()
-  player:load()
   beloved:load()
 end
 
@@ -27,7 +25,6 @@ end
 function love.draw()  
   if (state == "game") then
     game:draw()
-    player:draw()
   elseif (state == "menu") then
     menu:draw()
   end
@@ -36,6 +33,7 @@ end
   
   function love.mousepressed(x, y, button)
     menu:mousepressed(x, y, button)
+    game:mousepressed(x, y, button)
     beloved:mousepressed(x, y, button)
   end
   
