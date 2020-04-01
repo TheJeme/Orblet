@@ -1,19 +1,31 @@
 player = require 'player'
+obstacle = require 'obstacle'
 
 game = {}
 
-local angle
+local points
 
+function game:resetPoints()
+  points = 0
+end
 
 function game:load()
+  game:resetPoints()
+  obstacle:load()
   player:load()
-  angle = 0
 end
 
 function game:update(dt)
-  angle = angle + dt * math.pi/2
-	angle = angle % (2*math.pi)
   player:update(dt)
+  obstacle:update(dt)
+  
+  if (player.physics.body:getY() >= gh * 0.50 and obstacle:getAngle() > 3 and obstacle:getAngle() < 3.5) then
+    state = "menu"
+    obstacle:resetAngle()
+  elseif obstacle:getAngle() <= 3.5 and obstacle:getAngle() >= 3.4 and obstacle:getCanGetPoint() then
+    points = points + 1
+    obstacle:setCanGetPoint()
+  end
 end
 
 function game:draw()  
@@ -23,22 +35,17 @@ function game:draw()
   love.graphics.setColor(lightorange)
   --love.graphics.rectangle("fill", gw * 0.3, gh * 0.2, 120, 35, 18)
   love.graphics.setFont(quicksandBold)
-  love.graphics.printf("102", 0, gh * 0.16, gw, "center")
+  love.graphics.printf(points, 0, gh * 0.16, gw, "center")
   --Big sphere
   love.graphics.setColor(0.2, 0.2, 0.2, 1)  
   love.graphics.circle("fill", gw * 0.5, gh * 0.9, gh * 0.33, 64)
-  
-  love.graphics.push()
-    love.graphics.translate(gw * 0.5, gh * 0.9)
-  	love.graphics.rotate(-angle)
-    love.graphics.rectangle("fill", -30,0, 60, gh * 0.38)
-  love.graphics.pop()
-  
+
+  obstacle:draw()
   player:draw()
 end
 
-function game:mousepressed(x, y, button)
-  player:mousepressed(x, y, button)
+function game:mousepressed(x, y, button, isTouch)
+  player:mousepressed(x, y, button, isTouch)
 end
 
 return game

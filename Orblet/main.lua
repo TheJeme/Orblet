@@ -12,6 +12,7 @@ quicksandBold = love.graphics.newFont('fonts/Quicksand-Bold.ttf', 96)
 local gameplay
 
 function love.load()
+  
   love.graphics.setBackgroundColor(red)
   game:load()
   menu:load()
@@ -19,7 +20,9 @@ function love.load()
 end
 
 function love.update(dt)
-  game:update(dt)
+  if (state == "game") then
+    game:update(dt)
+  end
 end
 
 function love.draw()  
@@ -31,9 +34,12 @@ function love.draw()
   beloved:draw()
 end
   
-  function love.mousepressed(x, y, button)
-    menu:mousepressed(x, y, button)
-    game:mousepressed(x, y, button)
+  function love.mousepressed(x, y, button, isTouch)
+    if (state == "game") then
+    game:mousepressed(x, y, button, isTouch)
+    elseif (state == "menu") then
+    menu:mousepressed(x, y, button, isTouch)
+    end
     beloved:mousepressed(x, y, button)
   end
   

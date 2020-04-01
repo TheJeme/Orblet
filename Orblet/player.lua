@@ -1,7 +1,9 @@
 player = {}
   
+local physicsWorld
+  
 function player:load()
-  physicsWorld = love.physics.newWorld(0, 9.81 * 124, true)
+  physicsWorld = love.physics.newWorld(0, 9.81 * 164, true)
   local floor = {}
   floor.body = love.physics.newBody(physicsWorld, gw * 0.5, gh * 0.58)
   floor.shape = love.physics.newRectangleShape(love.graphics.getWidth(), 10)
@@ -22,6 +24,8 @@ end
 
 function player:update(dt)
   physicsWorld:update(dt)
+  
+  
 end
 
 function player:draw()
@@ -29,9 +33,9 @@ function player:draw()
   love.graphics.circle("fill", self.physics.body:getX(), self.physics.body:getY(), self.radius, 64)
 end
 
-function player:mousepressed(x, y, button)
-  if(button == 1) then
-    self.physics.body:applyLinearImpulse(0,-1300)
+function player:mousepressed(x, y, button, isTouch)
+  if ((button == 1 and self.physics.body:getY() >= gh * 0.53) or (isTouch and self.physics.body:getY() >= gh * 0.53)) then
+    self.physics.body:applyLinearImpulse(0, gh * -3.2)
   end
 end
 
