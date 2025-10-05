@@ -33,11 +33,10 @@ function game:update(dt)
 end
 
 function game:draw()  
-  love.graphics.setColor(orange)
-  love.graphics.circle("fill", gw * 0.9, gh * 0.1, 95, 64)
-  
   love.graphics.setColor(lightorange)
-  --love.graphics.rectangle("fill", gw * 0.3, gh * 0.2, 120, 35, 18)
+  love.graphics.circle("fill", gw * 0.5, gh * 0.24, 95, 64)
+  
+  love.graphics.setColor(1,1,1,1)
   love.graphics.setFont(quicksandBold)
   love.graphics.printf(points, 0, gh * 0.16, gw, "center")
   --Big sphere

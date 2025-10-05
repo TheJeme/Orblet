@@ -15,10 +15,9 @@ function beloved:load()
 end
 
 function beloved:draw()
-  if(isDebugMode == true) then
-    
-    love.graphics.setFont(font)
+  if(isDebugMode) then    
     love.graphics.push()
+    love.graphics.setFont(font)
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.line(gw * 0.5, 0, gw * 0.5, gh)
     love.graphics.line(0, gh * 0.5, gw, gh * 0.5)
@@ -43,20 +42,26 @@ function beloved:draw()
 end
 
 function beloved:mousepressed(x, y, button)
-  if (button == 1) then
-    mouse1Down = "LEFT"
-  end
-  if (button == 2) then
-    mouse2Down = "RIGHT"
+  if (isDebugMode) then
+    if (button == 1) then
+      print("Mouse left button pressed at " .. love.mouse.getX() .. ", " .. love.mouse.getY())
+      mouse1Down = "LEFT"
+    end
+    if (button == 2) then
+      print("Mouse right button pressed at " .. love.mouse.getX() .. ", " .. love.mouse.getY())
+      mouse2Down = "RIGHT"
+    end
   end
 end
 
 function beloved:mousereleased(x, y, button)
-  if button == 1 then
-    mouse1Down = ""
-  end
-  if button == 2 then
-    mouse2Down = ""
+  if (isDebugMode) then
+    if button == 1 then
+      mouse1Down = ""
+    end
+    if button == 2 then
+      mouse2Down = ""
+    end
   end
 end
 
